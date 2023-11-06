@@ -1,36 +1,63 @@
 <template>
   <main class="main-container">
-    <form class="form-container">
+    <form class="form-container" @submit.prevent="addTodo">
       <div class="input-container">
-        <label>Add a todo</label>
-        <input class="input" />
+        <label>Add a to-do</label>
+        <input class="input" v-model="todo" />
       </div>
-      <button class="submit-button">Add todo</button>
+      <button class="submit-button">Add</button>
     </form>
-    <div class="todo-container">
+    <span> {{ completedPercentage }}% of to-dos completed</span>
+    <div class="todo-container" v-for="todo in todos" :key="todo.id">
       <label class="todo-item">
-        <input type="checkbox" /><span class="todo-title">Task 1</span>
-      </label>
-      <button class="button-remove">🗑️</button>
-    </div>
-    <div class="todo-container">
-      <label class="todo-item">
-        <input type="checkbox" /><span class="todo-title"
-          >Task 2 that has a lot of characters</span
+        <input type="checkbox" @click="completeTodo(todo.id)" :checked="todo.completed" /><span
+          :class="['todo-title', { completed: todo.completed }]"
+          >{{ todo.title }}</span
         >
       </label>
-      <button class="button-remove">🗑️</button>
-    </div>
-    <div class="todo-container">
-      <label class="todo-item">
-        <input type="checkbox" /><span class="todo-title">Task 3</span>
-      </label>
-      <button class="button-remove">🗑️</button>
+      <button class="button-remove" @click="removeTodo(todo.id)">🗑️</button>
     </div>
   </main>
 </template>
 
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {
+      todos: [],
+      todo: ''
+    }
+  },
+  methods: {
+    addTodo() {
+      if (this.todo.trim().length > 0) {
+        const todo = {
+          id: this.todos.length + 1,
+          title: this.todo,
+          completed: false
+        }
+        this.todos.push(todo)
+        this.todo = ''
+      }
+    },
+    completeTodo(id) {
+      const todo = this.todos.find((oldTodo) => id === oldTodo.id)
+      todo.completed = !todo.completed
+    },
+    removeTodo(id) {
+      console.log(id)
+      this.todos = this.todos.filter((todo) => todo.id !== id)
+    }
+  },
+  computed: {
+    completedPercentage() {
+      const completedTodos = this.todos.filter((todo) => todo.completed)
+      const percentage = (completedTodos.length * 100) / this.todos.length || 0
+      return percentage.toFixed(0)
+    }
+  }
+}
+</script>
 
 <style scoped>
 /* todo-app styles */
@@ -75,7 +102,7 @@
 }
 
 .submit-button:hover {
-  background-color: #157c23;
+  background-color: rgba(37, 193, 107, 0.7);
 }
 
 /* todo list styles */
@@ -91,7 +118,6 @@
 .todo-item {
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #dd1b1b;
   white-space: nowrap;
 }
 
