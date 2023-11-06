@@ -7,6 +7,7 @@
       </div>
       <button class="submit-button">Add todo</button>
     </form>
+    <span>% of to-dos completed</span>
     <div class="todo-container">
       <label class="todo-item">
         <input type="checkbox" /><span class="todo-title">Task 1</span>
