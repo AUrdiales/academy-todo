@@ -2,17 +2,17 @@
   <main class="main-container">
     <form class="form-container">
       <div class="input-container">
-        <label>Add a todo</label>
+        <label>Add a to-do</label>
         <input class="input" />
       </div>
-      <button class="submit-button">Add todo</button>
+      <button class="button--submit">Add</button>
     </form>
     <span>% of to-dos completed</span>
     <div class="todo-container">
       <label class="todo-item">
         <input type="checkbox" /><span class="todo-title">Task 1</span>
       </label>
-      <button class="button-remove">🗑️</button>
+      <button class="button--remove">🗑️</button>
     </div>
     <div class="todo-container">
       <label class="todo-item">
@@ -20,13 +20,13 @@
           >Task 2 that has a lot of characters</span
         >
       </label>
-      <button class="button-remove">🗑️</button>
+      <button class="button--remove">🗑️</button>
     </div>
     <div class="todo-container">
       <label class="todo-item">
         <input type="checkbox" /><span class="todo-title">Task 3</span>
       </label>
-      <button class="button-remove">🗑️</button>
+      <button class="button--remove">🗑️</button>
     </div>
   </main>
 </template>
@@ -64,7 +64,7 @@
   padding-bottom: 12px;
 }
 
-.submit-button {
+.button--submit {
   align-self: end;
   background-color: #25c26c;
   border: none;
@@ -75,7 +75,7 @@
   cursor: pointer;
 }
 
-.submit-button:hover {
+.button--submit:hover {
   background-color: #157c23;
 }
 
@@ -92,7 +92,6 @@
 .todo-item {
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #dd1b1b;
   white-space: nowrap;
 }
 
@@ -100,7 +99,7 @@
   color: #22c522;
 }
 
-.button-remove {
+.button--remove {
   justify-self: center;
 }
 </style>
