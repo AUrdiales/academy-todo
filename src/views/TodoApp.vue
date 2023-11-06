@@ -5,23 +5,19 @@
         <label>Add a to-do</label>
         <input class="input" v-model="todoTitle" />
       </div>
-      <button class="submit-button">Add</button>
+      <BaseButton type="submit">Add</BaseButton>
     </form>
     <span> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
-      <label class="todo-item">
-        <input type="checkbox" @click="completeTodo(todo.id)" :checked="todo.completed" /><span
-          :class="['todo-title', { completed: todo.completed }]"
-          >{{ todo.title }}</span
-        >
-      </label>
-      <button class="button-remove" @click="removeTodo(todo.id)">🗑️</button>
+      <TodoItem @complete-todo="completeTodo" @remove-todo="removeTodo" :todo="todo" />
     </div>
   </main>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue'
+import BaseButton from '../components/BaseButton.vue'
+import TodoItem from '../components/TodoItem.vue'
 
 const todos = ref([])
 const todoTitle = ref('')
@@ -84,43 +80,9 @@ const completedPercentage = computed(() => {
   padding-top: 12px;
   padding-bottom: 12px;
 }
-
-.submit-button {
-  align-self: end;
-  background-color: #25c26c;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.submit-button:hover {
-  background-color: rgba(37, 193, 107, 0.7);
-}
-
-/* todo list styles */
 .todo-container {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 75% 25%;
-}
-.todo-title {
-  margin-left: 10px;
-}
-
-.todo-item {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.completed {
-  color: #22c522;
-}
-
-.button-remove {
-  justify-self: center;
 }
 </style>
