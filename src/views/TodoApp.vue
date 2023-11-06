@@ -5,7 +5,7 @@
         <label>Add a to-do</label>
         <input class="input" v-model="todoTitle" />
       </div>
-      <button class="submit-button">Add</button>
+      <button class="button--submit">Add</button>
     </form>
     <span> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
@@ -15,7 +15,7 @@
           >{{ todo.title }}</span
         >
       </label>
-      <button class="button-remove" @click="removeTodo(todo.id)">🗑️</button>
+      <button class="button--remove" @click="removeTodo(todo.id)">🗑️</button>
     </div>
   </main>
 </template>
@@ -90,7 +90,7 @@ export default {
   padding-bottom: 12px;
 }
 
-.submit-button {
+.button--submit {
   align-self: end;
   background-color: #25c26c;
   border: none;
@@ -101,7 +101,7 @@ export default {
   cursor: pointer;
 }
 
-.submit-button:hover {
+.button--submit:hover {
   background-color: rgba(37, 193, 107, 0.7);
 }
 
@@ -125,7 +125,7 @@ export default {
   color: #22c522;
 }
 
-.button-remove {
+.button--remove {
   justify-self: center;
 }
 </style>
