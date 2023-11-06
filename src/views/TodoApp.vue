@@ -3,7 +3,7 @@
     <form class="form-container" @submit.prevent="addTodo">
       <div class="input-container">
         <label>Add a to-do</label>
-        <input class="input" v-model="todo" />
+        <input class="input" v-model="todoTitle" />
       </div>
       <button class="submit-button">Add</button>
     </form>
@@ -20,43 +20,38 @@
   </main>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      todos: [],
-      todo: ''
+<script setup>
+import { computed, ref } from 'vue'
+
+const todos = ref([])
+const todoTitle = ref('')
+
+const addTodo = () => {
+  if (todoTitle.value.trim().length > 0) {
+    const todo = {
+      id: todos.value.length + 1,
+      title: todoTitle.value,
+      completed: false
     }
-  },
-  methods: {
-    addTodo() {
-      if (this.todo.trim().length > 0) {
-        const todo = {
-          id: this.todos.length + 1,
-          title: this.todo,
-          completed: false
-        }
-        this.todos.push(todo)
-        this.todo = ''
-      }
-    },
-    completeTodo(id) {
-      const todo = this.todos.find((oldTodo) => id === oldTodo.id)
-      todo.completed = !todo.completed
-    },
-    removeTodo(id) {
-      console.log(id)
-      this.todos = this.todos.filter((todo) => todo.id !== id)
-    }
-  },
-  computed: {
-    completedPercentage() {
-      const completedTodos = this.todos.filter((todo) => todo.completed)
-      const percentage = (completedTodos.length * 100) / this.todos.length || 0
-      return percentage.toFixed(0)
-    }
+    todos.value.push(todo)
+    todoTitle.value = ''
   }
 }
+
+const completeTodo = (id) => {
+  const todo = todos.value.find((oldTodo) => id === oldTodo.id)
+  todo.completed = !todo.completed
+}
+
+const removeTodo = (id) => {
+  todos.value = todos.value.filter((todo) => todo.id !== id)
+}
+
+const completedPercentage = computed(() => {
+  const completedTodos = todos.value.filter((todo) => todo.completed)
+  const percentage = (completedTodos.length * 100) / todos.value.length || 0
+  return percentage.toFixed(0)
+})
 </script>
 
 <style scoped>
