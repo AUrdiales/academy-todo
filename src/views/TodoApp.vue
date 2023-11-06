@@ -3,7 +3,7 @@
     <form class="form-container" @submit.prevent="addTodo">
       <div class="input-container">
         <label>Add a to-do</label>
-        <input class="input" v-model="todo" />
+        <input class="input" v-model="todoTitle" />
       </div>
       <button class="submit-button">Add</button>
     </form>
@@ -25,19 +25,19 @@ export default {
   data() {
     return {
       todos: [],
-      todo: ''
+      todoTitle: ''
     }
   },
   methods: {
     addTodo() {
-      if (this.todo.trim().length > 0) {
+      if (this.todoTitle.trim().length > 0) {
         const todo = {
           id: this.todos.length + 1,
-          title: this.todo,
+          title: this.todoTitle,
           completed: false
         }
         this.todos.push(todo)
-        this.todo = ''
+        this.todoTitle = ''
       }
     },
     completeTodo(id) {
