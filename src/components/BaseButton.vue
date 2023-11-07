@@ -1,11 +1,15 @@
 <template>
   <button :class="`button--${props.type}`">
-    <slot></slot>
+    {{ props.label }}
   </button>
 </template>
 
 <script setup>
 const props = defineProps({
+  label: {
+    type: String,
+    required: true
+  },
   type: {
     type: String,
     required: true

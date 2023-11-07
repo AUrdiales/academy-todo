@@ -5,11 +5,12 @@
         <label>Add a to-do</label>
         <input class="input" v-model="todoTitle" />
       </div>
-      <BaseButton type="submit">Add</BaseButton>
+      <BaseButton label="Add" type="submit"></BaseButton>
     </form>
-    <span> {{ completedPercentage }}% of to-dos completed</span>
+    <span v-show="numberOfTodos"> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
-      <TodoItem @complete-todo="completeTodo" @remove-todo="removeTodo" :todo="todo" />
+      <TodoItem @change="completeTodo(todo.id)" :todo="todo" />
+      <BaseButton label="🗑️" type="delete" @click="removeTodo(todo.id)"></BaseButton>
     </div>
   </main>
 </template>
@@ -42,6 +43,8 @@ const completeTodo = (id) => {
 const removeTodo = (id) => {
   todos.value = todos.value.filter((todo) => todo.id !== id)
 }
+
+const numberOfTodos = computed(() => todos.value.length)
 
 const completedPercentage = computed(() => {
   const completedTodos = todos.value.filter((todo) => todo.completed)
