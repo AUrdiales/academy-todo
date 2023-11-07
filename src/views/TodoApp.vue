@@ -7,7 +7,7 @@
       </div>
       <button class="button--submit">Add</button>
     </form>
-    <span> {{ completedPercentage }}% of to-dos completed</span>
+    <span v-show="numberOfTodos"> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
       <label class="todo-item">
         <input type="checkbox" @change="completeTodo(todo.id)" :checked="todo.completed" /><span
@@ -50,6 +50,9 @@ export default {
     }
   },
   computed: {
+    numberOfTodos() {
+      return this.todos.length
+    },
     completedPercentage() {
       const completedTodos = this.todos.filter((todo) => todo.completed)
       const percentage = (completedTodos.length * 100) / this.todos.length || 0
