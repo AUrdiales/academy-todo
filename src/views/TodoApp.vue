@@ -7,10 +7,10 @@
       </div>
       <button class="button--submit">Add</button>
     </form>
-    <span> {{ completedPercentage }}% of to-dos completed</span>
+    <span v-show="numberOfTodos"> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
       <label class="todo-item">
-        <input type="checkbox" @click="completeTodo(todo.id)" :checked="todo.completed" /><span
+        <input type="checkbox" @change="completeTodo(todo.id)" :checked="todo.completed" /><span
           :class="['todo-title', { completed: todo.completed }]"
           >{{ todo.title }}</span
         >
@@ -46,6 +46,8 @@ const completeTodo = (id) => {
 const removeTodo = (id) => {
   todos.value = todos.value.filter((todo) => todo.id !== id)
 }
+
+const numberOfTodos = computed(() => todos.value.length)
 
 const completedPercentage = computed(() => {
   const completedTodos = todos.value.filter((todo) => todo.completed)
