@@ -1,12 +1,11 @@
 <template>
-  <button :class="`button--${type}`">
+  <button :class="`button--${props.type}`">
     <slot></slot>
   </button>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-const { type } = defineProps({
+const props = defineProps({
   type: {
     type: String,
     required: true

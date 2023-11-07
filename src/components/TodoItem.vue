@@ -1,13 +1,18 @@
 <template>
   <label class="todo--item">
-    <input type="checkbox" @click="emit('completeTodo', props.todo.id)" :checked="todo.completed" />
-    <span :class="['todo--title', { completed: props.todo.completed }]">{{ props.todo.title }}</span>
+    <input
+      type="checkbox"
+      @click="emit('completeTodo', props.todo.id)"
+      :checked="props.todo.completed"
+    />
+    <span :class="['todo--title', { completed: props.todo.completed }]">{{
+      props.todo.title
+    }}</span>
   </label>
   <BaseButton type="delete" @click="emit('removeTodo', props.todo.id)">🗑️</BaseButton>
 </template>
 
 <script setup>
-import { defineEmits, defineProps } from 'vue'
 import BaseButton from './BaseButton.vue'
 const props = defineProps({
   todo: {
