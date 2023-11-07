@@ -10,7 +10,7 @@
     <span> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
       <label class="todo-item">
-        <input type="checkbox" @click="completeTodo(todo.id)" :checked="todo.completed" /><span
+        <input type="checkbox" @change="completeTodo(todo.id)" :checked="todo.completed" /><span
           :class="['todo-title', { completed: todo.completed }]"
           >{{ todo.title }}</span
         >
