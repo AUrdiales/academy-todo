@@ -3,13 +3,13 @@
     <form class="form-container" @submit.prevent="addTodo">
       <div class="input-container">
         <label>Add a to-do</label>
-        <input class="input" v-model="todoTitle" />
+        <input class="input" @input="onChangeTitle" :value="todoTitle" />
       </div>
       <BaseButton label="Add" type="submit"></BaseButton>
     </form>
     <span v-show="numberOfTodos"> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
-      <TodoItem @change="completeTodo(todo.id)" :todo="todo" />
+      <TodoItem @input="completeTodo(todo.id)" :todo="todo" />
       <BaseButton label="🗑️" type="delete" @click="removeTodo(todo.id)"></BaseButton>
     </div>
   </main>
@@ -34,6 +34,8 @@ const addTodo = () => {
     todoTitle.value = ''
   }
 }
+
+const onChangeTitle = (event) =>  todoTitle.value = event.target.value
 
 const completeTodo = (id) => {
   const todo = todos.value.find((oldTodo) => id === oldTodo.id)
