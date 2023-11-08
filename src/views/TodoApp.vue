@@ -3,14 +3,14 @@
     <form class="form-container" @submit.prevent="addTodo">
       <div class="input-container">
         <label>Add a to-do</label>
-        <input class="input" v-model="todoTitle" />
+        <input class="input" @input="onChangeTitle" :value="todoTitle" />
       </div>
       <button class="button--submit">Add</button>
     </form>
     <span v-show="numberOfTodos"> {{ completedPercentage }}% of to-dos completed</span>
     <div class="todo-container" v-for="todo in todos" :key="todo.id">
       <label class="todo-item">
-        <input type="checkbox" @change="completeTodo(todo.id)" :checked="todo.completed" /><span
+        <input type="checkbox" @input="completeTodo(todo.id)" :checked="todo.completed" /><span
           :class="['todo-title', { completed: todo.completed }]"
           >{{ todo.title }}</span
         >
@@ -29,6 +29,9 @@ export default {
     }
   },
   methods: {
+    onChangeTitle(event) {
+      this.todoTitle = event.target.value
+    },
     addTodo() {
       if (this.todoTitle.trim().length > 0) {
         const todo = {
